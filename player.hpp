@@ -19,6 +19,7 @@ public:
     Board *myBoard;
     Side mySide;
     Side oppSide;
+    Move *getMinimaxMove(int depth);
 };
 
 #endif
