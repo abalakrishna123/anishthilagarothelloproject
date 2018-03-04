@@ -7,7 +7,7 @@
 //TODO: Alpha-Beta pruning
 //TODO: Tune heuristic, clean up code into functions to get best move (through minimax etc...)
 
-// well shiet 
+
 
 /*
  * Constructor for the player; initialize everything here. The side your AI is
