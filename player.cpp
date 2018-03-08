@@ -1,12 +1,11 @@
 #include "player.hpp"
 #define CORNER_GAIN 20
-#define BUFFER_GAIN -5
+#define BUFFER_GAIN -10
 #define EDGE_GAIN 3
 
 //TODO: Implement minimax recursively for more depth in search
 //TODO: Alpha-Beta pruning
 //TODO: Tune heuristic, clean up code into functions to get best move (through minimax etc...)
-
 
 
 /*
@@ -161,9 +160,10 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
         // return nullptr;
 
         // Approach that beats Constant Time Player:Implement minimax
-        // of depth 2. Adjust the score however by adding a gain for a 
+        // of depth 3. Adjust the score however by adding a gain for a 
         // corner move and edge move and subtracting a factor
         // for a move that is a buffer move (enables a corner move)
+
         int new_score;
         Move *move = new Move(0, 0);
         int best_move_X = -1;
@@ -198,13 +198,16 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
                                 // Adjust score for whether our move is a corner or buffer
                                 if ( (i == 0 && j == 0)||(i == 7 && j == 0)||(i == 7 && j == 7) ||(i == 0 && j == 7)  ){
                                     new_score += CORNER_GAIN;
-
                                 }
                                 else if(  ( (i + j) <= 2  )||( (i + j) >= 13  )||( i < 2 && j > 5 ) ||( j < 2 && i > 5 ) ){
                                     new_score += BUFFER_GAIN;
                                 }
                                 else if( i == 0 || j == 0 || i == 7 || j == 7){
                                     new_score += EDGE_GAIN;
+                                }
+
+                                if(new_score < min_gain){
+                                    min_gain = new_score;
                                 }
 
                                 if(new_score < min_gain){
@@ -225,6 +228,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
                 } 
             }
         }
+          
 
         // Delete the move object we use for iteration
         delete move;
